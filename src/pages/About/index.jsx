@@ -54,7 +54,7 @@ function About() {
           <div className="grid grid-cols-2 gap-4 mt-8">
             <img
               className="w-full rounded-lg"
-              src="\public\Images\aa.jpeg"
+              src="/aa.jpeg"
               alt="ElectroMarket user interface"
             />
             <img

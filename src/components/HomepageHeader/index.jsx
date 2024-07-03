@@ -101,11 +101,7 @@ function HomepageHeader() {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="/public/assets/ElectroMarket.svg"
-              className="h-8"
-              alt="Logo"
-            />
+            <img src="/ElectroMarket.svg" className="h-8" alt="Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Electromarket
             </span>
@@ -170,7 +166,7 @@ function HomepageHeader() {
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-cyan-700 md:p-0 md:dark:hover:text-cyan-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   <img
-                    src="\public\assets\cart-shopping-svgrepo-com.svg"
+                    src="/cart-shopping-svgrepo-com.svg"
                     alt="Cart"
                     className="object-contain h-[50px] sm:h-[40px] md:h-[30px] lg:h-[30px] w-auto"
                   />
