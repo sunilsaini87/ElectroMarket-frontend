@@ -58,7 +58,7 @@ export default function SignUpPage() {
             >
               <img
                 className="w-8 h-8 mr-2"
-                src="/Electromarket.svg"
+                src="/ElectroMarket.svg"
                 alt="logo"
               />
               ElectroMarket
