@@ -30,7 +30,7 @@ function HomepageHerosection() {
             </div>
             <div className="md:w-1/2 lg:w-1/3 mt-8 md:mt-0">
               <img
-                src="\public\Images\ieengineer26.jpg"
+                src="/ieengineer26.jpg"
                 alt="Electrical Products Hero Image"
                 className="rounded-lg shadow-lg"
               />
