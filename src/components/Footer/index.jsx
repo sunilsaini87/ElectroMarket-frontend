@@ -1,6 +1,4 @@
-// import React from "react";
 import PropTypes from "prop-types";
-// import { Text, Img, Input, Heading } from "./..";
 
 export default function Footer() {
   return (
