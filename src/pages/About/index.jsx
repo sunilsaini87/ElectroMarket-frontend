@@ -59,7 +59,7 @@ function About() {
             />
             <img
               className="mt-4 w-full lg:mt-10 rounded-lg"
-              src="\public\Images\bb.png"
+              src="/bb.png"
               alt="ElectroMarket customer support"
             />
           </div>

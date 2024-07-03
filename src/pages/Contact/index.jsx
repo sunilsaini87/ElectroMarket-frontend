@@ -27,7 +27,7 @@ function Contact() {
                 type="email"
                 id="email"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                placeholder="name@flowbite.com"
+                placeholder="email"
                 required
               />
             </div>
@@ -62,7 +62,7 @@ function Contact() {
             </div>
             <button
               type="submit"
-              className="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="py-2 px-4 sm:py-3 sm:px-5 text-sm sm:text-base font-medium border border-white text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-500 dark:hover:bg-primary-600 dark:focus:ring-primary-700 transition-colors duration-300 ease-in-out"
             >
               Send Message
             </button>

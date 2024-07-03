@@ -17,19 +17,19 @@ export default function SignUpPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
- const {login} = useAuthContext();
+  const { login } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!data.Email.includes("@sliet.ac.in")){
-        toast.error("Signup with your SLIET's Email-Id")
-        return;
+    if (!data.Email.includes("@sliet.ac.in")) {
+      toast.error("Signup with your SLIET's Email-Id");
+      return;
     }
     try {
       const url = `${backend_route}/user/signup`;
-      const response  = await axios.post(url, data);
-      login(response.data.token,response.data.user);
-      toast.success("Signed Up Successfully.")
+      const response = await axios.post(url, data);
+      login(response.data.token, response.data.user);
+      toast.success("Signed Up Successfully.");
       navigate("/");
     } catch (error) {
       if (
@@ -58,7 +58,7 @@ export default function SignUpPage() {
             >
               <img
                 className="w-8 h-8 mr-2"
-                src="\public\assets\Electromarket.svg"
+                src="/Electromarket.svg"
                 alt="logo"
               />
               ElectroMarket
@@ -83,9 +83,8 @@ export default function SignUpPage() {
                     <input
                       type="text"
                       name="username"
-                      onChange={(e)=>{
-
-                        setData({...data,UserName:e.target.value})
+                      onChange={(e) => {
+                        setData({ ...data, UserName: e.target.value });
                       }}
                       id="username"
                       placeholder="Username"
@@ -107,12 +106,11 @@ export default function SignUpPage() {
                       name="email"
                       id="email"
                       value={data.Email}
-                      onChange={(e)=>{
-
-                        setData({...data,Email:e.target.value})
+                      onChange={(e) => {
+                        setData({ ...data, Email: e.target.value });
                       }}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="name@company.com"
+                      placeholder="email"
                       required
                     />
                   </div>
@@ -128,9 +126,8 @@ export default function SignUpPage() {
                       name="password"
                       id="password"
                       placeholder="••••••••"
-                      onChange={(e)=>{
-
-                        setData({...data,Password:e.target.value})
+                      onChange={(e) => {
+                        setData({ ...data, Password: e.target.value });
                       }}
                       value={data.Password}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

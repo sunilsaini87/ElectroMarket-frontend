@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 // import React from "react";
 import { Helmet } from "react-helmet";
 import HomepageHeader from "../components/HomepageHeader";
@@ -10,15 +11,15 @@ import { Link } from "react-router-dom";
 import { backend_route } from "../config";
 
 export default function HomepagePage() {
-  const [allproductdetails,setallproductdetails] = useState([]);
+  const [allproductdetails, setallproductdetails] = useState([]);
 
-  useEffect(()=>{
-     async function getallProducts() {
-           const response = await axios.get(`${backend_route}/product/bulk`)
-           setallproductdetails(response.data.allproducts);
-     }
-     getallProducts();
-  },[])
+  useEffect(() => {
+    async function getallProducts() {
+      const response = await axios.get(`${backend_route}/product/bulk`);
+      setallproductdetails(response.data.allproducts);
+    }
+    getallProducts();
+  }, []);
 
   return (
     <>
@@ -36,44 +37,41 @@ export default function HomepagePage() {
                 Our Featured Items
               </h2>
               <div className="grid grid-cols-2 gap-6 mt-10 lg:mt-16 lg:gap-4 lg:grid-cols-4">
-          {allproductdetails.slice(0,4).map((details)=>{
-              return  <Link to={`/aboutproduct?id=${details.id}`}>
-              <div className="relative group">
-                <div className="overflow-hidden aspect-w-1 aspect-h-1">
-                  <img
-                    className="object-cover  rounded-xl transition-all duration-300 group-hover:scale-125"
-                    src={`http://localhost:3001/${details.ImageLink}`}
-                    alt=""
-                  />
-                </div>
-                <div className="flex items-start justify-between mt-4 ">
-                  <div className=" flex flex-col gap-1">
-                    <h3 className="text-xs font-normal dark:text-white sm:text-sm md:text-base line-clamp-2">
-                      <a href="#" title="">
-                       {details.Title}
-                        <span
-                          className="absolute inset-0"
-                          aria-hidden="true"
-                        ></span>
-                      </a>
-                    </h3>
-                    
-                  </div>
-  
-                  <div className="text-right w-3/4 flex-grow">
-                    <p className="text-xs font-semibold dark:text-white sm:text-sm md:text-base ">
-                    Rs. {details.Price}/-
-                    </p>
-                  </div>
-                </div>
-              </div>
-              </Link>
-          })}  
-         
-            
+                {allproductdetails.slice(0, 4).map((details) => {
+                  return (
+                    <Link to={`/aboutproduct?id=${details.id}`}>
+                      <div className="relative group">
+                        <div className="overflow-hidden aspect-w-1 aspect-h-1">
+                          <img
+                            className="object-cover  rounded-xl transition-all duration-300 group-hover:scale-125"
+                            src={`http://localhost:3001/${details.ImageLink}`}
+                            alt=""
+                          />
+                        </div>
+                        <div className="flex items-start justify-between mt-4 ">
+                          <div className=" flex flex-col gap-1">
+                            <h3 className="text-xs font-normal dark:text-white sm:text-sm md:text-base line-clamp-2">
+                              <a href="#" title="">
+                                {details.Title}
+                                <span
+                                  className="absolute inset-0"
+                                  aria-hidden="true"
+                                ></span>
+                              </a>
+                            </h3>
+                          </div>
 
-            
-          </div>
+                          <div className="text-right w-3/4 flex-grow">
+                            <p className="text-xs font-semibold dark:text-white sm:text-sm md:text-base ">
+                              Rs. {details.Price}/-
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
             <div className="flex justify-center">
               <a
@@ -233,13 +231,8 @@ export default function HomepagePage() {
         <section className="bg-white dark:bg-gray-900 self-stretch">
           <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6 dark:bg-gray-900">
             <img
-              className="w-full dark:hidden"
-              src="https://electromarket.com/images/light-theme-dashboard.svg"
-              alt="ElectroMarket dashboard"
-            />
-            <img
               className="w-full hidden dark:block"
-              src="\public\Images\cta-dashboard-mockup-dark.svg"
+              src="/cta-dashboard-mockup-dark.svg"
               alt="ElectroMarket dashboard"
             />
             <div className="mt-4 md:mt-0 dark:bg-gray-900">

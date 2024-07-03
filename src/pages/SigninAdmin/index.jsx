@@ -11,15 +11,15 @@ import { backend_route } from "../../config";
 export default function SigninAdminPage() {
   const [data, setData] = useState({ Email: "", Password: "" });
   const [error, setError] = useState("");
-  const {login} = useAuthContext();
+  const { login } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const url = `${backend_route}/admin/signin`;
       const response = await axios.post(url, data);
-      login(response.data.token,response.data.admin);
-      toast.success("Signed in successfully.")
+      login(response.data.token, response.data.admin);
+      toast.success("Signed in successfully.");
       window.location = "/";
     } catch (error) {
       if (
@@ -47,7 +47,7 @@ export default function SigninAdminPage() {
             >
               <img
                 className="w-8 h-8 mr-2"
-                src="\public\assets\ElectroMarket.svg"
+                src="/ElectroMarket.svg"
                 alt="logo"
               />
               ElectroMarket
@@ -73,12 +73,12 @@ export default function SigninAdminPage() {
                       type="email"
                       name="email"
                       id="email"
-                      onChange={(e)=>{
-                        setData({...data,Email:e.target.value})
+                      onChange={(e) => {
+                        setData({ ...data, Email: e.target.value });
                       }}
                       value={data.Email}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="name@company.com"
+                      placeholder="email"
                       required=""
                     />
                   </div>
@@ -94,10 +94,9 @@ export default function SigninAdminPage() {
                       name="password"
                       id="password"
                       placeholder="••••••••"
-                      onChange={(e)=>{
-                        setData({...data,Password:e.target.value})
+                      onChange={(e) => {
+                        setData({ ...data, Password: e.target.value });
                       }}
-                      
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
                     />
