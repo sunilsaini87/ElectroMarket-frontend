@@ -21,12 +21,13 @@ export default function SignUpPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!data.Email.includes("@sliet.ac.in")) {
-      toast.error("Signup with your SLIET's Email-Id");
-      return;
-    }
+    // if (!data.Email.includes("@sliet.ac.in")) {
+    //   toast.error("Signup with your SLIET's Email-Id");
+    //   return;
+    // }
+
     try {
-      const url = `${backend_route}/user/signup`;
+      const url = `${backend_route}/api/v1/user/signup`;
       const response = await axios.post(url, data);
       login(response.data.token, response.data.user);
       toast.success("Signed Up Successfully.");
