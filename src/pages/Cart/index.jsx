@@ -5,7 +5,7 @@ import HomepageHeader from "../../components/HomepageHeader";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 // import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../Context/AuthContext";
@@ -20,7 +20,7 @@ export default function CartPage() {
     async function lockedItems() {
       try {
         const response = await axios.post(
-          `${backend_route}/user/lockedproduct`,
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/lockedproduct`,
           {
             UserId: userid,
           }

@@ -3,7 +3,7 @@ import HomepageHeader from "../../components/HomepageHeader";
 import Footer from "../../components/Footer";
 import { useEffect } from "react";
 import axios from "axios";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const UserDetails = () => {
   useEffect(() => {
     async function wishlist() {
       const response = await axios.get(
-        `${backend_route}/user/wishlist/${userEmail}`
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/wishlist/${userEmail}`
       );
       console.log(response.data.wishList.WishList);
       setwishlist(response.data.wishList.WishList);

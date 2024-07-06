@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
 import { useAuthContext } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 
 export default function SignUpPage() {
   const [data, setData] = useState({
@@ -27,7 +27,7 @@ export default function SignUpPage() {
     // }
 
     try {
-      const url = `${backend_route}/api/v1/user/signup`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/user/signup`;
       const response = await axios.post(url, data);
       login(response.data.token, response.data.user);
       toast.success("Signed Up Successfully.");

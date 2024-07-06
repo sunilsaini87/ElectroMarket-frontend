@@ -4,8 +4,8 @@ import { useState } from "react";
 import Helmet from "react-helmet";
 import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
-import {toast} from "react-hot-toast";
-import { backend_route } from "../../config";
+import { toast } from "react-hot-toast";
+// import { backend_route } from "../../config";
 
 const CreateProduct = () => {
   const [title, setTitle] = useState("");
@@ -24,32 +24,30 @@ const CreateProduct = () => {
       formData.append("file", image);
       formData.append("Price", textprice);
       formData.append("YoutubeLink", youtubeLink);
-      
-      if (!localStorage.getItem('token')){
-           toast.error("Please Signup to create product.")
+
+      if (!localStorage.getItem("token")) {
+        toast.error("Please Signup to create product.");
       }
       const response = await fetch(
-
-       `${backend_route}/admin/createproduct`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/createproduct`,
         {
           method: "POST",
           body: formData,
-          headers:{
-            'Authorization':`Bearer ${localStorage.getItem('token')}`
-          }
-        
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
-  
+
       const data = await response.json();
-      toast.success(data.message)
-    
-        setImage("")
-        setDescription("")
-        setPrice("")
-        setTitle("")
-        setYoutubeLink("")
-      
+      toast.success(data.message);
+
+      setImage("");
+      setDescription("");
+      setPrice("");
+      setTitle("");
+      setYoutubeLink("");
+
       console.log(data);
       // Handle success or error
     } catch (error) {

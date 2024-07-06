@@ -1,28 +1,31 @@
 import axios from "axios";
 import { useState } from "react";
 import Helmet from "react-helmet";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 import { useAuthContext } from "../../Context/AuthContext";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState("");
   const [input, setinput] = useState("");
-  const [sending,setsending] = useState(false);
+  const [sending, setsending] = useState(false);
 
-  const {isauthenticated} = useAuthContext();
-  const navigate= useNavigate();
+  const { isauthenticated } = useAuthContext();
+  const navigate = useNavigate();
 
   const handleclick = async () => {
-    if (input.trim()===""){
-      toast.error("Please Enter appropriate Input.")
+    if (input.trim() === "") {
+      toast.error("Please Enter appropriate Input.");
       return;
     }
     try {
       setsending(true);
-   
-      const response = await axios.post(`${backend_route}/user/gpt`, {input:input});
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/gpt`,
+        { input: input }
+      );
       setMessages(response.data.response);
       setsending(false);
     } catch (e) {
@@ -32,16 +35,24 @@ const Chatbot = () => {
   };
 
   if (!isauthenticated) {
-    return <div className="flex flex-col items-center gap-4  dark:bg-gray-800 min-h-screen border-l border-gray-500 overflow-y-auto px-3">
-      <div className="text-white text-xl font-normal text-center">Signup to access Chatbot Support.</div>
-      <button onClick={()=>navigate('/user/signin')} className="text-white text-md font-medium bg-violet-700 px-4 py-0.5 rounded-md">Signup</button>
-       </div>
+    return (
+      <div className="flex flex-col items-center gap-4  dark:bg-gray-800 min-h-screen border-l border-gray-500 overflow-y-auto px-3">
+        <div className="text-white text-xl font-normal text-center">
+          Signup to access Chatbot Support.
+        </div>
+        <button
+          onClick={() => navigate("/user/signin")}
+          className="text-white text-md font-medium bg-violet-700 px-4 py-0.5 rounded-md"
+        >
+          Signup
+        </button>
+      </div>
+    );
   }
 
   return (
     <>
       <Helmet>
-        
         <title>ElectroMarket Chatbot</title>
         <meta name="description" content="Chat with our support team" />
       </Helmet>
@@ -66,7 +77,11 @@ const Chatbot = () => {
                 onClick={handleclick}
                 className="bg-violet-600 text-gray-200 text-sm px-4 py-0.5 rounded-md"
               >
-                {sending ? <div className="text-gray-200 text-sm">generating...</div> : <div>ask</div>}
+                {sending ? (
+                  <div className="text-gray-200 text-sm">generating...</div>
+                ) : (
+                  <div>ask</div>
+                )}
               </button>
             </div>
             <div className="text-md transition-all font-normal text-gray-100 py-4">

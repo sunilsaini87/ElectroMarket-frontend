@@ -5,7 +5,7 @@ import Chatbot from "../ChatBot";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 import { useAuthContext } from "../../Context/AuthContext";
 import { toast } from "react-hot-toast";
 
@@ -31,7 +31,7 @@ function ProductDisplay() {
   useEffect(() => {
     async function getproductdetails() {
       const response = await axios.get(
-        `http://localhost:3001/api/v1/product/${productid}`
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/product/${productid}`
       );
       const details = response.data.product;
       setproductdetails({
@@ -56,10 +56,13 @@ function ProductDisplay() {
     }
 
     try {
-      const response = await axios.post(`${backend_route}/product/buy`, {
-        ProductId: productid,
-        UserId : userid
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/product/buy`,
+        {
+          ProductId: productid,
+          UserId: userid,
+        }
+      );
       toast.success(response.data.message);
       navigate("/cart");
     } catch (error) {
@@ -76,7 +79,7 @@ function ProductDisplay() {
     if (!addfavorite) {
       try {
         const response = await axios.post(
-          `${backend_route}/user/wishlist`,
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/wishlist`,
           {
             ProductId: productid,
             UserId: userid,
@@ -97,7 +100,7 @@ function ProductDisplay() {
     } else {
       try {
         const response = await axios.post(
-          `${backend_route}/user/deletewishlist`,
+          `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/deletewishlist`,
           {
             ProductId: productid,
             UserId: userid,

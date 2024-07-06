@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
 import { useAuthContext } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 
 export default function SigninAdminPage() {
   const [data, setData] = useState({ Email: "", Password: "" });
@@ -16,7 +16,7 @@ export default function SigninAdminPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${backend_route}/admin/signin`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/signin`;
       const response = await axios.post(url, data);
       login(response.data.token, response.data.admin);
       toast.success("Signed in successfully.");

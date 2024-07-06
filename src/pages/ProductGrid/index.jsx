@@ -6,14 +6,16 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { backend_route } from "../../config";
+// import { backend_route } from "../../config";
 
 function FeaturedProducts() {
   const [allproductdetails, setallproductdetails] = useState([]);
 
   useEffect(() => {
     async function getallProducts() {
-      const response = await axios.get(`${backend_route}/product/bulk`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/product/bulk`
+      );
       setallproductdetails(response.data.allproducts);
     }
     getallProducts();
