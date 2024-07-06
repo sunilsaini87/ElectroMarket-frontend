@@ -8,8 +8,6 @@ import { useAuthContext } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
 
 export default function SignUpPageAdmin() {
-  // const [PhoneNumber, setPhoneNumber] = useState("+91");
-
   const [data, setData] = useState({
     AdminName: "",
     Email: "",
@@ -33,7 +31,7 @@ export default function SignUpPageAdmin() {
     }
 
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}api/v1/admin/signup`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/admin/signup`;
       const response = await axios.post(url, data);
       toast.success("Signed up successfully.");
       login(response.data.token, response.data.admin);
@@ -90,13 +88,13 @@ export default function SignUpPageAdmin() {
                       type="text"
                       name="username"
                       value={data.AdminName}
-                      onChange={(e) => {
-                        setData({ ...data, AdminName: e.target.value });
-                      }}
+                      onChange={(e) =>
+                        setData({ ...data, AdminName: e.target.value })
+                      }
                       id="username"
                       placeholder="AdminName"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      required=""
+                      required
                     />
                   </div>
 
@@ -111,13 +109,13 @@ export default function SignUpPageAdmin() {
                       type="email"
                       name="email"
                       value={data.Email}
-                      onChange={(e) => {
-                        setData({ ...data, Email: e.target.value });
-                      }}
+                      onChange={(e) =>
+                        setData({ ...data, Email: e.target.value })
+                      }
                       id="email"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="email"
-                      required=""
+                      required
                     />
                   </div>
                   <div>
@@ -132,13 +130,13 @@ export default function SignUpPageAdmin() {
                       name="phone"
                       id="phone"
                       placeholder="1234567890"
-                      onChange={(e) => {
-                        setData({ ...data, PhoneNumber: e.target.value });
-                      }}
+                      onChange={(e) =>
+                        setData({ ...data, PhoneNumber: e.target.value })
+                      }
                       className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 
                         
                       `}
-                      required=""
+                      required
                     />
                   </div>
 
@@ -152,14 +150,14 @@ export default function SignUpPageAdmin() {
                     <input
                       type="password"
                       name="password"
-                      onChange={(e) => {
-                        setData({ ...data, Password: e.target.value });
-                      }}
+                      onChange={(e) =>
+                        setData({ ...data, Password: e.target.value })
+                      }
                       value={data.Password}
                       id="password"
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      required=""
+                      required
                     />
                   </div>
 
@@ -170,7 +168,7 @@ export default function SignUpPageAdmin() {
                         aria-describedby="terms"
                         type="checkbox"
                         className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                        required=""
+                        required
                       />
                     </div>
                     <div className="ml-3 text-sm">

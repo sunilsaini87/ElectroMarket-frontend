@@ -29,7 +29,7 @@ const CreateProduct = () => {
         toast.error("Please Signup to create product.");
       }
       const response = await fetch(
-        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/createproduct`,
+        `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/admin/createproduct`,
         {
           method: "POST",
           body: formData,
