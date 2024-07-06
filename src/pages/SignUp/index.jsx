@@ -28,7 +28,7 @@ export default function SignUpPage() {
     }
 
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/signup`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/user/signup`;
       const response = await axios.post(url, data);
       console.log("done");
       login(response.data.token, response.data.user);
