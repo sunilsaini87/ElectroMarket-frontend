@@ -6,7 +6,6 @@ import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
 import { useAuthContext } from "../../Context/AuthContext";
 import toast from "react-hot-toast";
-// import { backend_route } from "../../config";
 
 export default function SignUpPageAdmin() {
   // const [PhoneNumber, setPhoneNumber] = useState("+91");
@@ -20,7 +19,7 @@ export default function SignUpPageAdmin() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { isauthenticated, login } = useAuthContext();
+  const { login } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +27,13 @@ export default function SignUpPageAdmin() {
       toast.error("Signup with your SLIET's Email-Id");
       return;
     }
-    if (isNaN(data.PhoneNumber) || data.PhoneNumber.length !== 10) {
-      toast.error("Not a number");
+    if (isNaN(parseInt(data.PhoneNumber)) || data.PhoneNumber.length !== 10) {
+      toast.error("Invalid phone number");
       return;
     }
 
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/signup`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}api/v1/admin/signup`;
       const response = await axios.post(url, data);
       toast.success("Signed up successfully.");
       login(response.data.token, response.data.admin);
@@ -79,7 +78,6 @@ export default function SignUpPageAdmin() {
                 <form
                   className="space-y-4 md:space-y-6"
                   onSubmit={handleSubmit}
-                  action="#"
                 >
                   <div>
                     <label
