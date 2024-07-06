@@ -5,8 +5,6 @@ import axios from "axios";
 import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
 import { useAuthContext } from "../../Context/AuthContext";
-// import toast from "react-hot-toast";
-// import { backend_route } from "../../config";
 
 export default function SignUpPage() {
   const [userData, setUserData] = useState({
@@ -30,19 +28,13 @@ export default function SignUpPage() {
     e.preventDefault();
 
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
       const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/user/signup`,
         {
           UserName: userData.UserName,
           Email: userData.Email,
           Password: userData.Password,
-        },
-        config
+        }
       );
 
       setIsSuccess(true);
@@ -50,14 +42,15 @@ export default function SignUpPage() {
       login(response.data.token, response.data.user);
       navigate("/");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setIsSuccess(false);
-        setStatusMessage(error.response?.data?.msg || "An error occurred");
+      setIsSuccess(false);
+      if (error.response) {
+        setStatusMessage(error.response.data.msg || "An error occurred");
+      } else if (error.request) {
+        setStatusMessage("No response from the server. Please try again.");
+      } else {
+        setStatusMessage("An error occurred. Please try again.");
       }
+      console.error("Error during signup:", error);
     }
   };
 
@@ -104,14 +97,14 @@ export default function SignUpPage() {
                 >
                   <div>
                     <label
-                      htmlFor="username"
+                      htmlFor="UserName"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Username
                     </label>
                     <input
                       type="text"
-                      name="username"
+                      name="UserName"
                       onChange={changeInputHandler}
                       placeholder="Username"
                       value={userData.UserName}
@@ -121,15 +114,15 @@ export default function SignUpPage() {
 
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="Email"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Your Email
                     </label>
                     <input
                       type="email"
-                      name="email"
-                      id="email"
+                      name="Email"
+                      id="Email"
                       value={userData.Email}
                       onChange={changeInputHandler}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -138,14 +131,14 @@ export default function SignUpPage() {
                   </div>
                   <div>
                     <label
-                      htmlFor="password"
+                      htmlFor="Password"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >
                       Password
                     </label>
                     <input
                       type="password"
-                      name="password"
+                      name="Password"
                       placeholder="••••••••"
                       onChange={changeInputHandler}
                       value={userData.Password}
