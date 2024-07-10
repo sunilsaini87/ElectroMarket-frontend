@@ -16,7 +16,7 @@ export default function SigninPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/signin`;
+      const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/user/signin`;
       const response = await axios.post(url, data);
       toast.success("Signed in successfully.");
       login(response.data.token, response.data.user);
