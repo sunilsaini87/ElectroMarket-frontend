@@ -1,76 +1,81 @@
-// components/AddProductForm.js
-
 import { useState } from "react";
 import Helmet from "react-helmet";
 import Footer from "../../components/Footer";
 import HomepageHeader from "../../components/HomepageHeader";
 import { toast } from "react-hot-toast";
-// import { backend_route } from "../../config";
+import axios from "axios"; // Import Axios
 
 const CreateProduct = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [price, setPrice] = useState("");
   const [youtubeLink, setYoutubeLink] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const textprice = price.toString();
+      if (!localStorage.getItem("token")) {
+        toast.error("Please log in to create a product.");
+        return;
+      }
+
       const formData = new FormData();
       formData.append("Title", title);
       formData.append("Description", description);
       formData.append("file", image);
-      formData.append("Price", textprice);
+      formData.append("Price", price);
       formData.append("YoutubeLink", youtubeLink);
 
-      if (!localStorage.getItem("token")) {
-        toast.error("Please Signup to create product.");
-      }
-      const response = await fetch(
+      const response = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api/v1/admin/createproduct`,
+        formData,
         {
-          method: "POST",
-          body: formData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data", // Set content type for FormData
           },
         }
       );
 
-      const data = await response.json();
+      const data = response.data;
+
+      if (!response.status === 201) {
+        toast.error(data.message || "Something went wrong.");
+        return;
+      }
+
       toast.success(data.message);
 
-      setImage("");
-      setDescription("");
-      setPrice("");
+      // Clear form fields
       setTitle("");
+      setDescription("");
+      setImage(null);
+      setPrice("");
       setYoutubeLink("");
 
       console.log(data);
-      // Handle success or error
     } catch (error) {
-      console.error(error);
-      // Handle error
+      console.error("Error while creating product:", error);
+      toast.error(
+        "An error occurred while creating the product. Please try again."
+      );
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>ElectroMarket</title>
-        <meta name="description" content="" />
+        <title>ElectroMarket - Add Product</title>
+        <meta
+          name="description"
+          content="Add a new product to the ElectroMarket"
+        />
       </Helmet>
-      <div className="flex flex-col items-center gap-10 bg-white-A700 dark:bg-gray-300 min-h-screen">
+      <div className="flex flex-col items-center gap-10 bg-white min-h-screen dark:bg-gray-300">
         <HomepageHeader shopOne="Sign in" className="w-full" />
-        <section className="py-8 bg-white md:py-16 dark:bg-gray-800 antialiased w-full">
-          <div
-            id="defaultModal"
-            tabIndex="-1"
-            aria-hidden="true"
-            className="top-0 right-0 left-0 w-full md:inset-0 h-modal md:h-full inset-0  flex items-center justify-center overflow-y-auto overflow-x-hidden"
-          >
+        <section className="py-8 bg-white dark:bg-gray-800 antialiased w-full">
+          <div className="flex items-center justify-center w-full">
             <div className="relative p-4 w-full max-w-2xl h-full md:h-auto dark:bg-gray-900">
               <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-900 sm:p-5">
                 <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
@@ -78,12 +83,11 @@ const CreateProduct = () => {
                     Add Product
                   </h3>
                 </div>
-
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                   <div className="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                       <label
-                        htmlFor="name"
+                        htmlFor="image"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Image
@@ -95,13 +99,12 @@ const CreateProduct = () => {
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // placeholder="Image"
-                        required=""
+                        required
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="brand"
+                        htmlFor="title"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         Title
@@ -113,7 +116,7 @@ const CreateProduct = () => {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required=""
+                        required
                       />
                     </div>
                     <div>
@@ -130,13 +133,12 @@ const CreateProduct = () => {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // placeholder="$2999"
-                        required=""
+                        required
                       />
                     </div>
                     <div>
                       <label
-                        htmlFor="price"
+                        htmlFor="youtubeLink"
                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                       >
                         YouTube Link
@@ -148,7 +150,7 @@ const CreateProduct = () => {
                         value={youtubeLink}
                         onChange={(e) => setYoutubeLink(e.target.value)}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required=""
+                        required
                       />
                     </div>
                     <div className="sm:col-span-2">
@@ -166,6 +168,7 @@ const CreateProduct = () => {
                         rows="4"
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Write product description here"
+                        required
                       ></textarea>
                     </div>
                   </div>
