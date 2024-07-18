@@ -40,7 +40,7 @@ const CreateProduct = () => {
 
       const data = response.data;
 
-      if (!response.status === 201) {
+      if (response.status !== 201) {
         toast.error(data.message || "Something went wrong.");
         return;
       }

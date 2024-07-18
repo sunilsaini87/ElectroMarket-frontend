@@ -20,7 +20,7 @@ export default function SigninAdminPage() {
       const response = await axios.post(url, data);
       login(response.data.token, response.data.admin);
       toast.success("Signed in successfully.");
-      window.location = "/";
+      window.location = "/admin/createproduct";
     } catch (error) {
       if (
         error.response &&
